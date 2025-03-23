@@ -1,0 +1,76 @@
+<div class="p-2">
+    <div class="header-home">
+        <h1 class="title-home">Lista de Hospitales</h1>
+        <div class="spacer"></div>
+        <button mat-flat-button color="primary" (click)="addHospital()">
+            <mat-icon>add_circle</mat-icon>
+            Agregar Hospital
+        </button>
+    </div>
+
+    <!-- 🔍 Barra de búsqueda -->
+    <mat-form-field appearance="outline" class="search-bar">
+        <mat-label>Buscar Hospital</mat-label>
+        <input matInput [(ngModel)]="filtro" (input)="aplicarFiltro()" placeholder="Ingrese nombre o distrito">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <table mat-table [dataSource]="hospitalesFiltrados" class="custom-elevation">
+        <ng-container matColumnDef="idHospital">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let hospital"> {{ hospital.idHospital }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let hospital"> {{ hospital.nombre }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="antiguedad">
+            <th mat-header-cell *matHeaderCellDef> Antigüedad (años) </th>
+            <td mat-cell *matCellDef="let hospital"> {{ hospital.antiguedad }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="area">
+            <th mat-header-cell *matHeaderCellDef> Área (m²) </th>
+            <td mat-cell *matCellDef="let hospital"> {{ hospital.area }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nombreSede">
+            <th mat-header-cell *matHeaderCellDef> Sede </th>
+            <td mat-cell *matCellDef="let hospital"> {{ hospital.nombreSede }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nombreDistrito">
+            <th mat-header-cell *matHeaderCellDef> Distrito </th>
+            <td mat-cell *matCellDef="let hospital"> {{ hospital.nombreDistrito }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nombreGerente">
+            <th mat-header-cell *matHeaderCellDef> Gerente </th>
+            <td mat-cell *matCellDef="let hospital"> {{ hospital.nombreGerente }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nombreCondicion">
+            <th mat-header-cell *matHeaderCellDef> Condición </th>
+            <td mat-cell *matCellDef="let hospital"> {{ hospital.nombreCondicion }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let hospital">
+                <button mat-icon-button (click)="editHospital(hospital)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button (click)="deleteHospital(hospital)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+
+

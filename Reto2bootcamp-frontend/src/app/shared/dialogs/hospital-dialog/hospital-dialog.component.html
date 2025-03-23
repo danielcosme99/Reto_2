@@ -1,0 +1,83 @@
+<div class="p-2">
+  <span mat-dialog-title class="modal-title">{{ data && data.idHospital ? 'Actualizar' : 'Crear' }} Hospital</span>
+
+  <mat-dialog-content class="px-0 py-1">
+    <form [formGroup]="hospitalForm">
+
+      <mat-form-field appearance="fill">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nombre" />
+        <mat-error *ngIf="hospitalForm.get('nombre')?.hasError('required')">
+          El nombre es requerido.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Antigüedad (años)</mat-label>
+        <input type="number" matInput formControlName="antiguedad" />
+        <mat-error *ngIf="hospitalForm.get('antiguedad')?.hasError('required')">
+          La antigüedad es requerida.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Área (m²)</mat-label>
+        <input type="number" matInput formControlName="area" />
+        <mat-error *ngIf="hospitalForm.get('area')?.hasError('required')">
+          El área es requerida.
+        </mat-error>
+      </mat-form-field>
+
+      <!-- SEDE -->
+      <mat-form-field appearance="fill">
+        <mat-label>Sede</mat-label>
+        <mat-select formControlName="nombreSede">
+          <mat-option *ngFor="let sede of sedes" [value]="sede.IDSEDE">
+            {{ sede.DESCSEDE }}
+          </mat-option>
+          
+        </mat-select>
+      </mat-form-field>
+
+      <!-- DISTRITO -->
+      <mat-form-field appearance="fill">
+        <mat-label>Distrito</mat-label>
+        <mat-select formControlName="nombreDistrito">
+          <mat-option *ngFor="let distrito of distritos" [value]="distrito.IDDISTRITO">
+            {{ distrito.DESCDISTRITO }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- GERENTE -->
+      <mat-form-field appearance="fill">
+        <mat-label>Gerente</mat-label>
+        <mat-select formControlName="nombreGerente">
+          <mat-option *ngFor="let gerente of gerentes" [value]="gerente.IDGERENTE">
+            {{ gerente.DESCGERENTE }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- CONDICIÓN -->
+      <mat-form-field appearance="fill">
+        <mat-label>Condición</mat-label>
+        <mat-select formControlName="nombreCondicion">
+          <mat-option *ngFor="let condicion of condiciones" [value]="condicion.IDCONDICION">
+            {{ condicion.DESCCONDICION }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="p-0">
+    <button mat-button (click)="onCancel()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="hospitalForm.invalid">
+      Guardar
+    </button>
+  </mat-dialog-actions>
+</div>
+
