@@ -3,13 +3,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
+
 import { HospitalDialogComponent } from '../../shared/dialogs/hospital-dialog/hospital-dialog.component';
 import { HospitalService } from '../../core/services/hospital.service';
-import { Observable } from 'rxjs';
 import { Hospital } from '../../core/models/hospital.model';
+import { DeleteHospitalDialogComponent } from '../../shared/dialogs/delete-dialog/delete-dialog.component';
+
 import { MatTableModule } from '@angular/material/table';
 import { FormsModule } from '@angular/forms';
-import { DeleteHospitalDialogComponent } from '../../shared/dialogs/delete-dialog/delete-dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -31,11 +32,11 @@ export class HomeComponent {
   
   terminoBusqueda: string = '';
   criterioSeleccionado: keyof Hospital = 'nombre'; 
-  
+
   setCriterioSeleccionado(nuevoCriterio: keyof Hospital) {
     this.criterioSeleccionado = nuevoCriterio;
-    this.terminoBusqueda = ''; // 🔹 Limpiar la barra de búsqueda
-    this.aplicarFiltro(); // 🔹 Aplicar filtro para que se restablezca la lista
+    this.terminoBusqueda = ''; 
+    this.aplicarFiltro(); 
   }
   
   @ViewChild(MatSort) sort!: MatSort;
@@ -47,7 +48,6 @@ export class HomeComponent {
 
   ngOnInit() {
     this.loadHospitales();
-    
   }
 
   loadHospitales() {

@@ -1,4 +1,4 @@
 export interface Gerente {
-    idGerente?: number;
-    descGerente: string;
+    IDGERENTE?: number;
+    DESCGERENTE: string;
   }

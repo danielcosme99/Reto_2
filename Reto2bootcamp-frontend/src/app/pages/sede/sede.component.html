@@ -4,21 +4,37 @@
         <div class="spacer"></div>
     </div>
     <div class="buscar-y-agregar">
+      <div class="barra-busqueda">
+        <!-- Barra de búsqueda: Campo de selección -->
+        <mat-form-field appearance="outline">
+            <mat-label>Buscar por</mat-label>
+            <mat-select [(ngModel)]="criterioSeleccionado" (selectionChange)="setCriterioSeleccionado($event.value)">
+                <mat-option value="DESCSEDE">Nombre</mat-option>
+                
+            </mat-select>
+        </mat-form-field>
+
+        <!-- Barra de búsqueda: Input -->
+        <mat-form-field appearance="outline" class="campo-busqueda">
+            <mat-label>Buscar...</mat-label>
+            <input matInput (input)="aplicarFiltro()" [(ngModel)]="terminoBusqueda">
+        </mat-form-field>
+    </div>
         <button mat-flat-button color="primary" (click)="addSede()">
             <mat-icon>add_circle</mat-icon>
             Agregar Sede
         </button>
     </div>
   
-    <table mat-table [dataSource]="sedes" class="custom-elevation">
+    <table mat-table [dataSource]="dataSource" matSort class="custom-elevation">
       
-      <ng-container matColumnDef="idSede">
-        <th mat-header-cell *matHeaderCellDef>ID</th>
+      <ng-container matColumnDef="IDSEDE">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
         <td mat-cell *matCellDef="let sede">{{ sede.IDSEDE }}</td>
       </ng-container>
   
-      <ng-container matColumnDef="nombre">
-        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+      <ng-container matColumnDef="DESCSEDE">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
         <td mat-cell *matCellDef="let sede">{{ sede.DESCSEDE }}</td>
       </ng-container>
   

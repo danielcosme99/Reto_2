@@ -1,4 +1,4 @@
 export interface Sede {
-    idSede?: number;
-    descSede: string;
+    IDSEDE?: number;
+    DESCSEDE: string;
   }

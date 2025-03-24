@@ -1,18 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { SedeService } from '../../core/services/sede.service';
-import { Sede } from '../../core/models/sede.model';
-import { SedeDialogComponent } from '../../shared/dialogs/sede-dialog/sede-dialog.component';
-import { MatTableDataSource } from '@angular/material/table';
-import { ConfirmDialogComponent } from '../../shared/dialogs/confirm-dialog/confirm-dialog.component';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
+
+import { SedeService } from '../../core/services/sede.service';
+import { Sede } from '../../core/models/sede.model';
+import { SedeDialogComponent } from '../../shared/dialogs/sede-dialog/sede-dialog.component';
+import { ConfirmDialogComponent } from '../../shared/dialogs/confirm-dialog/confirm-dialog.component';
+
 import { MatTableModule } from '@angular/material/table';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 import { MatSortModule } from '@angular/material/sort';
 
 @Component({
@@ -22,10 +25,21 @@ import { MatSortModule } from '@angular/material/sort';
   imports: [MatButtonModule, CommonModule, MatIconModule, FormsModule, MatTableModule,MatFormFieldModule, MatInputModule,MatSelectModule, MatSortModule]
 })
 export class SedeComponent implements OnInit {
-  
-  displayedColumns: string[] = ['idSede', 'nombre', 'acciones'];
+  loadingChangeState: boolean = false;
+  displayedColumns: string[] = ['IDSEDE', 'DESCSEDE', 'acciones'];
   sedes: Sede[] = [];
   dataSource = new MatTableDataSource<Sede>([]);
+
+  terminoBusqueda: string = '';
+  criterioSeleccionado: keyof Sede = 'DESCSEDE'; 
+
+  setCriterioSeleccionado(nuevoCriterio: keyof Sede) {
+        this.criterioSeleccionado = nuevoCriterio;
+        this.terminoBusqueda = '';
+        this.aplicarFiltro(); 
+      }
+
+      @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private sedeService: SedeService,
@@ -37,11 +51,27 @@ export class SedeComponent implements OnInit {
   }
 
   loadSedes() {
-    this.sedeService.listarSedes().subscribe({
-      next: (res) => { this.sedes = res; this.dataSource = new MatTableDataSource(res); },
-      error: (err) => console.error('Error al cargar sedes:', err)
-    });
-  }
+      this.sedeService.listarSedes().subscribe(
+        (res: Sede[]) => {
+          this.sedes = res;
+          this.dataSource = new MatTableDataSource(res);
+          this.dataSource.sort = this.sort;
+        },
+        (error) => {
+          console.error("Error al obtener condiciones", error);
+        }
+      );
+    }
+
+    aplicarFiltro() {
+          const filtro = this.terminoBusqueda.toLowerCase().trim();
+          this.dataSource.filter = filtro;
+          this.dataSource.filterPredicate = (data: Sede, filtro: string) => {
+            const valor = (data[this.criterioSeleccionado] as string)?.toLowerCase();
+            return valor?.includes(filtro);
+          };
+          console.log('filtro', filtro);
+        }
 
   addSede() {
     const dialogRef = this.dialog.open(SedeDialogComponent, {

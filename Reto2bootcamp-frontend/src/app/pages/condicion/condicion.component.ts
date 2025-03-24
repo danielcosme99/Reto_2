@@ -1,18 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { CondicionService } from '../../core/services/condicion.service';
-import { Condicion } from '../../core/models/condicion.model';
-import { CondicionDialogComponent } from '../../shared/dialogs/condicion-dialog/condicion-dialog.component';
-import { MatTableDataSource } from '@angular/material/table';
-import { ConfirmDialogComponent } from '../../shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
+
+import { CondicionDialogComponent } from '../../shared/dialogs/condicion-dialog/condicion-dialog.component';
+import { CondicionService } from '../../core/services/condicion.service';
+import { Condicion } from '../../core/models/condicion.model';
+import { ConfirmDialogComponent } from '../../shared/dialogs/confirm-dialog/confirm-dialog.component';
+
 import { MatTableModule } from '@angular/material/table';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatSortModule } from '@angular/material/sort';
 
@@ -22,26 +24,26 @@ import { MatSortModule } from '@angular/material/sort';
   styleUrls: ['./condicion.component.scss'],
   imports: [MatButtonModule, CommonModule, MatIconModule, FormsModule, MatTableModule,MatFormFieldModule, MatInputModule,MatSelectModule, MatSortModule]
 })
-export class CondicionComponent implements OnInit {
+export class CondicionComponent {
   loadingChangeState: boolean = false;
-  displayedColumns: string[] = ['idCondicion', 'nombre', 'acciones'];
+  displayedColumns: string[] = ['IDCONDICION', 'DESCCONDICION', 'acciones'];
   condiciones: Condicion[] = [];
   dataSource = new MatTableDataSource<Condicion>([]);
 
   terminoBusqueda: string = '';
-  criterioSeleccionado: keyof Condicion = 'descCondicion'; 
+  criterioSeleccionado: keyof Condicion = 'DESCCONDICION'; 
 
   setCriterioSeleccionado(nuevoCriterio: keyof Condicion) {
       this.criterioSeleccionado = nuevoCriterio;
-      this.terminoBusqueda = ''; 
-      this.aplicarFiltro();
+      this.terminoBusqueda = '';
+      this.aplicarFiltro(); 
     }
 
-    @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
-    private condicionService: CondicionService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private condicionService: CondicionService
   ) {}
 
   ngOnInit() {
@@ -49,10 +51,16 @@ export class CondicionComponent implements OnInit {
   }
 
   loadCondiciones() {
-    this.condicionService.listarCondiciones().subscribe({
-      next: (res) => { this.condiciones = res; this.dataSource = new MatTableDataSource(res); },
-      error: (err) => console.error('Error al cargar condiciones:', err)
-    });
+    this.condicionService.listarCondiciones().subscribe(
+      (res: Condicion[]) => {
+        this.condiciones = res;
+        this.dataSource = new MatTableDataSource(res);
+        this.dataSource.sort = this.sort;
+      },
+      (error) => {
+        console.error("Error al obtener condiciones", error);
+      }
+    );
   }
 
   aplicarFiltro() {
@@ -62,7 +70,9 @@ export class CondicionComponent implements OnInit {
         const valor = (data[this.criterioSeleccionado] as string)?.toLowerCase();
         return valor?.includes(filtro);
       };
+      console.log('filtro', filtro);
     }
+
   addCondicion() {
     const dialogRef = this.dialog.open(CondicionDialogComponent, {
       width: '400px',
@@ -110,3 +120,4 @@ export class CondicionComponent implements OnInit {
     });
   }
 }
+
