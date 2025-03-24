@@ -2,14 +2,13 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormControl, FormBuilder, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
 import { ProvinciaService } from '../../../core/services/provincia.service';
-import { Provincia } from '../../../core/models/provincia.model';
 
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { HospitalService } from '../../../core/services/hospital.service';
 import { MatDialogModule } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-provincia-dialog',
   templateUrl: './provincia-dialog.component.html',

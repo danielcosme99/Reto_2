@@ -15,14 +15,6 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
 
-  isAuthenticated(): boolean {
-    return !!localStorage.getItem('uid')
-  }
-
-  getUid(): string | null {
-    return localStorage.getItem('uid')
-  }
-
   logout() {
     localStorage.removeItem('auth');
     this.router.navigate(['/login']);

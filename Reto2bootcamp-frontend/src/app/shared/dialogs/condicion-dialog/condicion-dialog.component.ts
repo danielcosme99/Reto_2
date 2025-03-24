@@ -5,13 +5,15 @@ import { CondicionService } from '../../../core/services/condicion.service';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-condicion-dialog',
   standalone: true,
   templateUrl: './condicion-dialog.component.html',
   styleUrls: ['./condicion-dialog.component.scss'],
-  imports: [ReactiveFormsModule, CommonModule, MatInputModule, MatDialogModule]
+  imports: [MatButtonModule,MatSelectModule, ReactiveFormsModule, CommonModule, MatInputModule, MatDialogModule]
 })
 export class CondicionDialogComponent implements OnInit {
 

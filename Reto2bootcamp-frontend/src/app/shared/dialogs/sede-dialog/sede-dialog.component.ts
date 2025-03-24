@@ -5,13 +5,15 @@ import { SedeService } from '../../../core/services/sede.service';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-sede-dialog',
   standalone: true,
   templateUrl: './sede-dialog.component.html',
   styleUrls: ['./sede-dialog.component.scss'],
-  imports: [ReactiveFormsModule, CommonModule, MatInputModule, MatDialogModule]
+  imports: [MatSelectModule, MatButtonModule, ReactiveFormsModule, CommonModule, MatInputModule, MatDialogModule]
 })
 export class SedeDialogComponent implements OnInit {
 

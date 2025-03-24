@@ -2,21 +2,19 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DistritoService } from '../../../core/services/distrito.service';
-import { ProvinciaService } from '../../../core/services/provincia.service';
-import { Distrito } from '../../../core/models/distrito.model';
-import { Provincia } from '../../../core/models/provincia.model';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { HospitalService } from '../../../core/services/hospital.service';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-distrito-dialog',
   standalone: true,
   templateUrl: './distrito-dialog.component.html',
   styleUrls: ['./distrito-dialog.component.scss'],
-  imports: [ ReactiveFormsModule, CommonModule,MatInputModule, MatDialogModule, MatSelectModule]
+  imports: [ MatButtonModule, ReactiveFormsModule, CommonModule,MatInputModule, MatDialogModule, MatSelectModule]
 })
 export class DistritoDialogComponent implements OnInit {
 

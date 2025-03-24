@@ -55,7 +55,7 @@ export class HomeComponent {
       (res: Hospital[]) => {
         this.hospitales = res;
         this.dataSource = new MatTableDataSource(res);
-        this.dataSource.sort = this.sort; // Inicialmente, muestra todos
+        this.dataSource.sort = this.sort;
       },
       (error) => {
         console.error("Error al obtener hospitales", error);

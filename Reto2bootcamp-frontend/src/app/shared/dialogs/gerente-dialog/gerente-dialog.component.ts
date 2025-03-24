@@ -5,13 +5,15 @@ import { GerenteService } from '../../../core/services/gerente.service';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-gerente-dialog',
   standalone: true,
   templateUrl: './gerente-dialog.component.html',
   styleUrls: ['./gerente-dialog.component.scss'],
-  imports: [ReactiveFormsModule, CommonModule, MatInputModule, MatDialogModule]
+  imports: [MatButtonModule,MatSelectModule,ReactiveFormsModule, CommonModule, MatInputModule, MatDialogModule]
 })
 export class GerenteDialogComponent implements OnInit {
 
