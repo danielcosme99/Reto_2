@@ -30,8 +30,8 @@ export class HomeComponent {
   dataSource = new MatTableDataSource<Hospital>([]);
   
   terminoBusqueda: string = '';
-  criterioSeleccionado: keyof Hospital = 'nombre'; // 🔹 Por defecto, buscar por nombre
-
+  criterioSeleccionado: keyof Hospital = 'nombre'; 
+  
   setCriterioSeleccionado(nuevoCriterio: keyof Hospital) {
     this.criterioSeleccionado = nuevoCriterio;
     this.terminoBusqueda = ''; // 🔹 Limpiar la barra de búsqueda

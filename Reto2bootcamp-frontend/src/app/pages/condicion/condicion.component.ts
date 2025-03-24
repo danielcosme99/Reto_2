@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CondicionService } from '../../core/services/condicion.service';
 import { Condicion } from '../../core/models/condicion.model';
@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSort } from '@angular/material/sort';
 import { MatSortModule } from '@angular/material/sort';
 
 @Component({
@@ -22,10 +23,21 @@ import { MatSortModule } from '@angular/material/sort';
   imports: [MatButtonModule, CommonModule, MatIconModule, FormsModule, MatTableModule,MatFormFieldModule, MatInputModule,MatSelectModule, MatSortModule]
 })
 export class CondicionComponent implements OnInit {
-  
+  loadingChangeState: boolean = false;
   displayedColumns: string[] = ['idCondicion', 'nombre', 'acciones'];
   condiciones: Condicion[] = [];
   dataSource = new MatTableDataSource<Condicion>([]);
+
+  terminoBusqueda: string = '';
+  criterioSeleccionado: keyof Condicion = 'descCondicion'; 
+
+  setCriterioSeleccionado(nuevoCriterio: keyof Condicion) {
+      this.criterioSeleccionado = nuevoCriterio;
+      this.terminoBusqueda = ''; 
+      this.aplicarFiltro();
+    }
+
+    @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private condicionService: CondicionService,
@@ -43,6 +55,14 @@ export class CondicionComponent implements OnInit {
     });
   }
 
+  aplicarFiltro() {
+      const filtro = this.terminoBusqueda.toLowerCase().trim();
+      this.dataSource.filter = filtro;
+      this.dataSource.filterPredicate = (data: Condicion, filtro: string) => {
+        const valor = (data[this.criterioSeleccionado] as string)?.toLowerCase();
+        return valor?.includes(filtro);
+      };
+    }
   addCondicion() {
     const dialogRef = this.dialog.open(CondicionDialogComponent, {
       width: '400px',
