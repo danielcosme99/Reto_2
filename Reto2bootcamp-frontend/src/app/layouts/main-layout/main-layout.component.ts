@@ -19,7 +19,12 @@ import { CloseSessionDialogComponent } from '../../shared/dialogs/close-session-
 
 export class MainLayoutComponent implements OnDestroy {
   fillerNav = [
-    { name: 'Home', icon: 'home', path: '/home'}
+    { name: 'Hospital', icon: 'home', path: '/home'},
+    { name: 'Distrito', icon: 'distrito', path: '/distrito'},
+    { name: 'Sede', icon: 'sede', path: '/sede'},
+    { name: 'Gerente', icon: 'gerente', path: '/gerente'},
+    { name: 'Condicion', icon: 'condicion', path: '/condicion'},
+    { name: 'Provincia', icon: 'provincia', path: '/provincia'}
   ]
 
   protected readonly isMobile = signal(true)

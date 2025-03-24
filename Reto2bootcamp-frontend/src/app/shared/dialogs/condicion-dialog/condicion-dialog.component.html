@@ -1,0 +1,21 @@
+<div class="p-2">
+    <span mat-dialog-title class="modal-title">
+      {{ data && data.IDCONDICION ? 'Actualizar' : 'Crear' }} Condición
+    </span>
+
+    <mat-dialog-content>
+      <form [formGroup]="condicionForm">
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre de la Condición</mat-label>
+          <input matInput formControlName="descCondicion" />
+        </mat-form-field>
+      </form>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+      <button mat-button (click)="onCancel()">Cancelar</button>
+      <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="condicionForm.invalid">
+        Guardar
+      </button>
+    </mat-dialog-actions>
+</div>

@@ -55,7 +55,7 @@ export class HospitalDialogComponent implements OnInit {
       this.setDropdownValue('nombreSede', this.data?.nombreSede, res, 'DESCSEDE', 'IDSEDE');
     });
 
-    this.hospitalService.getDistritos().subscribe(res => {
+    this.hospitalService.listarDistritos().subscribe(res => {
       this.distritos = res;
       this.setDropdownValue('nombreDistrito', this.data?.nombreDistrito, res, 'DESCDISTRITO', 'IDDISTRITO');
     });

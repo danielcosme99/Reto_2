@@ -35,4 +35,9 @@ public class ReferenciaController {
     public List<Map<String, Object>> obtenerCondiciones() {
         return referenciaService.obtenerCondiciones();
     }
+    
+    @GetMapping("/provincias")
+    public List<Map<String, Object>> obtenerProvincias() {
+        return referenciaService.obtenerProvincias();
+    }
 }

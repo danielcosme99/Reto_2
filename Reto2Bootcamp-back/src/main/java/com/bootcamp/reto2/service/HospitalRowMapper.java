@@ -22,6 +22,4 @@ public class HospitalRowMapper implements RowMapper<Hospital> {
         hospital.setNombreCondicion(rs.getString("CONDICION"));
         return hospital;
     }
-    
-    
 }

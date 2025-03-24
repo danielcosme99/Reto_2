@@ -1,0 +1,21 @@
+<div class="p-2">
+    <span mat-dialog-title class="modal-title">
+      {{ data && data.IDGERENTE ? 'Actualizar' : 'Crear' }} Gerente
+    </span>
+
+    <mat-dialog-content>
+      <form [formGroup]="gerenteForm">
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre del Gerente</mat-label>
+          <input matInput formControlName="descGerente" />
+        </mat-form-field>
+      </form>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+      <button mat-button (click)="onCancel()">Cancelar</button>
+      <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="gerenteForm.invalid">
+        Guardar
+      </button>
+    </mat-dialog-actions>
+</div>

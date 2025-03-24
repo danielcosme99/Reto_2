@@ -1,0 +1,25 @@
+<div class="p-2">
+    <span mat-dialog-title class="modal-title">
+      {{ data && data.IDPROVINCIA ? 'Actualizar' : 'Crear' }} Provincia
+    </span>
+  
+    <mat-dialog-content class="px-0 py-1">
+      <form [formGroup]="provinciaForm">
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre de la Provincia</mat-label>
+          <input matInput formControlName="descProvincia" />
+          <mat-error *ngIf="provinciaForm.get('descProvincia')?.hasError('required')">
+            El nombre de la provincia es requerido.
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </mat-dialog-content>
+  
+    <mat-dialog-actions class="p-0">
+      <button mat-button (click)="onCancel()">Cancelar</button>
+      <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="provinciaForm.invalid">
+        Guardar
+      </button>
+    </mat-dialog-actions>
+</div>
+

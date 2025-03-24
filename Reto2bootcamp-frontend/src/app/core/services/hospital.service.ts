@@ -32,7 +32,7 @@ export class HospitalService {
     return this.http.get<any[]>(`${this.apiUrl}/sedes`);
   }
 
-  getDistritos(): Observable<any[]> {
+  listarDistritos(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/distritos`);
   }
 
@@ -42,5 +42,8 @@ export class HospitalService {
 
   getCondiciones(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/condiciones`);
+  }
+  getProvincias(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/provincias`);
   }
 }

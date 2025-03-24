@@ -1,0 +1,47 @@
+<div class="p-2">
+    <div class="header-home">
+        <h1 class="title-home">Gestión de Distritos</h1>
+        <div class="spacer"></div>
+    </div>
+    <div class="buscar-y-agregar">
+        <button mat-flat-button color="primary" (click)="addDistrito()">
+            <mat-icon>add_circle</mat-icon>
+            Agregar Distrito
+        </button>
+    </div>
+  
+    <table mat-table [dataSource]="distritos" class="custom-elevation">
+      
+      <ng-container matColumnDef="idDistrito">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let distrito">{{ distrito.IDDISTRITO }}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef>Distrito</th>
+        <td mat-cell *matCellDef="let distrito">{{ distrito.DESCDISTRITO }}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="nombreProvincia">
+        <th mat-header-cell *matHeaderCellDef>Provincia</th>
+        <td mat-cell *matCellDef="let distrito">{{ distrito.PROVINCIA }}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let distrito">
+          <button mat-icon-button color="primary" (click)="editDistrito(distrito)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="confirmDelete(distrito.IDDISTRITO)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+    </table>
+  </div>
+  

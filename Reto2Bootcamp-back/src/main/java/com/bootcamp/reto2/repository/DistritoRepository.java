@@ -14,7 +14,7 @@ public class DistritoRepository {
     }
 
     public List<Map<String, Object>> obtenerDistritos() {
-        String sql = "SELECT IDDISTRITO, DESCDISTRITO FROM DISTRITO";
+        String sql = "SELECT IDDISTRITO, IDPROVINCIA, DESCDISTRITO FROM DISTRITO";
         return jdbcTemplate.queryForList(sql);
     }
 }

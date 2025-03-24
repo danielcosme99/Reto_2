@@ -11,10 +11,12 @@ public class ReferenciaService {
     private final DistritoRepository distritoRepository;
     private final GerenteRepository gerenteRepository;
     private final CondicionRepository condicionRepository;
+    private final ProvinciaRepository provinciaRepository;
 
-    public ReferenciaService(SedeRepository sedeRepository, DistritoRepository distritoRepository,
+    public ReferenciaService(ProvinciaRepository provinciaRepository, SedeRepository sedeRepository, DistritoRepository distritoRepository,
                              GerenteRepository gerenteRepository, CondicionRepository condicionRepository) {
-        this.sedeRepository = sedeRepository;
+    	this.provinciaRepository = provinciaRepository;
+    	this.sedeRepository = sedeRepository;
         this.distritoRepository = distritoRepository;
         this.gerenteRepository = gerenteRepository;
         this.condicionRepository = condicionRepository;
@@ -34,5 +36,8 @@ public class ReferenciaService {
 
     public List<Map<String, Object>> obtenerCondiciones() {
         return condicionRepository.obtenerCondiciones();
+    }
+    public List<Map<String, Object>> obtenerProvincias() {
+        return provinciaRepository.obtenerProvincias();
     }
 }

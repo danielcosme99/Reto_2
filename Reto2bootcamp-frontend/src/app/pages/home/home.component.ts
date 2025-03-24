@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,19 +12,33 @@ import { FormsModule } from '@angular/forms';
 import { DeleteHospitalDialogComponent } from '../../shared/dialogs/delete-dialog/delete-dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatSortModule } from '@angular/material/sort';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  imports: [MatButtonModule, CommonModule, MatIconModule, FormsModule, MatTableModule,MatFormFieldModule, MatInputModule]
+  imports: [MatButtonModule, CommonModule, MatIconModule, FormsModule, MatTableModule,MatFormFieldModule, MatInputModule,MatSelectModule, MatSortModule]
 })
 export class HomeComponent {
   loadingChangeState: boolean = false;
   displayedColumns: string[] = ['idHospital', 'nombre', 'antiguedad', 'area', 'nombreSede', 'nombreDistrito', 'nombreGerente', 'nombreCondicion', 'actions'];
   hospitales: Hospital[] = [];
-  hospitalesFiltrados: Hospital[] = [];
-  filtro: string = '';
+  dataSource = new MatTableDataSource<Hospital>([]);
+  
+  terminoBusqueda: string = '';
+  criterioSeleccionado: keyof Hospital = 'nombre'; // 🔹 Por defecto, buscar por nombre
+
+  setCriterioSeleccionado(nuevoCriterio: keyof Hospital) {
+    this.criterioSeleccionado = nuevoCriterio;
+    this.terminoBusqueda = ''; // 🔹 Limpiar la barra de búsqueda
+    this.aplicarFiltro(); // 🔹 Aplicar filtro para que se restablezca la lista
+  }
+  
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private dialog: MatDialog,
@@ -33,13 +47,15 @@ export class HomeComponent {
 
   ngOnInit() {
     this.loadHospitales();
+    
   }
 
   loadHospitales() {
     this.hospitalService.listarHospitales().subscribe(
       (res: Hospital[]) => {
         this.hospitales = res;
-        this.hospitalesFiltrados = res; // Inicialmente, muestra todos
+        this.dataSource = new MatTableDataSource(res);
+        this.dataSource.sort = this.sort; // Inicialmente, muestra todos
       },
       (error) => {
         console.error("Error al obtener hospitales", error);
@@ -48,12 +64,12 @@ export class HomeComponent {
   }
 
   aplicarFiltro() {
-    const filtroLower = this.filtro.toLowerCase().trim();
-    this.hospitalesFiltrados = this.hospitales.filter(hospital => 
-      hospital.nombre.toLowerCase().includes(filtroLower) ||
-      hospital.nombreDistrito.toLowerCase().includes(filtroLower) ||
-      hospital.nombreGerente.toLowerCase().includes(filtroLower)
-    );
+    const filtro = this.terminoBusqueda.toLowerCase().trim();
+    this.dataSource.filter = filtro;
+    this.dataSource.filterPredicate = (data: Hospital, filtro: string) => {
+      const valor = (data[this.criterioSeleccionado] as string)?.toLowerCase();
+      return valor?.includes(filtro);
+    };
   }
 
   addHospital() {

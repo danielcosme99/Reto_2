@@ -1,0 +1,41 @@
+<div class="p-2">
+    <div class="header-home">
+        <h1 class="title-home">Gestión de Sedes</h1>
+        <div class="spacer"></div>
+    </div>
+    <div class="buscar-y-agregar">
+        <button mat-flat-button color="primary" (click)="addSede()">
+            <mat-icon>add_circle</mat-icon>
+            Agregar Sede
+        </button>
+    </div>
+  
+    <table mat-table [dataSource]="sedes" class="custom-elevation">
+      
+      <ng-container matColumnDef="idSede">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let sede">{{ sede.IDSEDE }}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let sede">{{ sede.DESCSEDE }}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let sede">
+          <button mat-icon-button color="primary" (click)="editSede(sede)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="confirmDelete(sede.IDSEDE)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+    </table>
+</div>

@@ -1,0 +1,41 @@
+<div class="p-2">
+    <div class="header-home">
+        <h1 class="title-home">Gestión de Condiciones</h1>
+        <div class="spacer"></div>
+    </div>
+    <div class="buscar-y-agregar">
+        <button mat-flat-button color="primary" (click)="addCondicion()">
+            <mat-icon>add_circle</mat-icon>
+            Agregar Condición
+        </button>
+    </div>
+  
+    <table mat-table [dataSource]="condiciones" class="custom-elevation">
+      
+      <ng-container matColumnDef="idCondicion">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let condicion">{{ condicion.IDCONDICION }}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let condicion">{{ condicion.DESCCONDICION }}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let condicion">
+          <button mat-icon-button color="primary" (click)="editCondicion(condicion)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="confirmDelete(condicion.IDCONDICION)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+    </table>
+</div>
